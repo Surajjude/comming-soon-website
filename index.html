@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Coming Soon - BytesNest</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
@@ -14,22 +14,31 @@
       --light: #f1f5f9;
     }
     
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+    
     body {
-      font-family: 'Poppins', sans-serif;
+      font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
       background-color: var(--dark);
       color: var(--light);
       display: flex;
       align-items: center;
       justify-content: center;
       min-height: 100vh;
+      min-height: -webkit-fill-available;
       margin: 0;
+      padding: 1rem;
       flex-direction: column;
       overflow-x: hidden;
       position: relative;
+      text-size-adjust: 100%;
+      -webkit-text-size-adjust: 100%;
     }
     
     .particles {
-      position: absolute;
+      position: fixed;
       top: 0;
       left: 0;
       width: 100%;
@@ -40,38 +49,39 @@
     .content {
       text-align: center;
       z-index: 1;
-      padding: 2rem;
-      max-width: 800px;
+      padding: 1rem;
+      max-width: 100%;
+      width: 100%;
     }
     
     h1 {
-      font-size: 4rem;
-      margin-bottom: 1rem;
+      font-size: 2.5rem;
+      margin-bottom: 0.75rem;
       background: linear-gradient(45deg, var(--primary), var(--secondary));
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
-      animation: pulse 2s infinite;
+      line-height: 1.2;
     }
     
     .logo {
-      font-size: 5rem;
-      margin-bottom: 1rem;
+      font-size: 3.5rem;
+      margin-bottom: 0.5rem;
       display: inline-block;
-      transform-style: preserve-3d;
       animation: float 6s ease-in-out infinite;
     }
     
     p {
-      font-size: 1.5rem;
-      margin-bottom: 2rem;
+      font-size: 1.1rem;
+      margin-bottom: 1.5rem;
       opacity: 0.9;
+      line-height: 1.5;
     }
     
     .tagline {
-      font-size: 1.8rem;
+      font-size: 1.3rem;
       font-weight: 300;
-      margin-bottom: 3rem;
+      margin-bottom: 2rem;
       background: linear-gradient(45deg, #e2e8f0, #94a3b8);
       -webkit-background-clip: text;
       background-clip: text;
@@ -81,27 +91,30 @@
     .countdown {
       display: flex;
       justify-content: center;
-      gap: 1.5rem;
-      margin-bottom: 3rem;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-bottom: 2rem;
+      max-width: 100%;
     }
     
     .countdown-item {
       background: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(10px);
-      padding: 1rem 1.5rem;
-      border-radius: 10px;
-      min-width: 80px;
-      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+      backdrop-filter: blur(5px);
+      padding: 0.8rem;
+      border-radius: 8px;
+      min-width: 70px;
+      flex: 1 0 auto;
+      max-width: 23%;
     }
     
     .countdown-value {
-      font-size: 2.5rem;
+      font-size: 1.8rem;
       font-weight: 700;
       color: var(--primary);
     }
     
     .countdown-label {
-      font-size: 0.8rem;
+      font-size: 0.7rem;
       text-transform: uppercase;
       letter-spacing: 1px;
       opacity: 0.7;
@@ -111,24 +124,24 @@
       background: linear-gradient(45deg, var(--primary), var(--secondary));
       color: white;
       border: none;
-      padding: 1rem 2.5rem;
-      font-size: 1.2rem;
+      padding: 1rem 2rem;
+      font-size: 1.1rem;
       border-radius: 50px;
       cursor: pointer;
-      transition: all 0.3s ease;
+      transition: all 0.2s ease;
       box-shadow: 0 4px 15px rgba(79, 70, 229, 0.4);
       position: relative;
       overflow: hidden;
       z-index: 1;
-    }
-    
-    .cta:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 25px rgba(79, 70, 229, 0.6);
+      width: 90%;
+      max-width: 300px;
+      margin: 0 auto;
+      display: block;
+      touch-action: manipulation;
     }
     
     .cta:active {
-      transform: translateY(1px);
+      transform: scale(0.98);
     }
     
     .cta::before {
@@ -144,63 +157,83 @@
       z-index: -1;
     }
     
-    .cta:hover::before {
+    .cta:active::before {
       opacity: 1;
     }
     
     .social-links {
       display: flex;
-      gap: 1.5rem;
-      margin-top: 3rem;
+      justify-content: center;
+      gap: 1.25rem;
+      margin-top: 2rem;
+      flex-wrap: wrap;
     }
     
     .social-link {
       color: var(--light);
-      font-size: 1.5rem;
-      transition: all 0.3s ease;
+      font-size: 1.4rem;
+      transition: all 0.2s ease;
+      display: inline-block;
+      padding: 0.5rem;
     }
     
-    .social-link:hover {
+    .social-link:active {
+      transform: scale(0.9);
       color: var(--primary);
-      transform: translateY(-3px);
     }
     
     @keyframes float {
-      0% { transform: translateY(0px) rotateY(0deg); }
-      50% { transform: translateY(-20px) rotateY(10deg); }
-      100% { transform: translateY(0px) rotateY(0deg); }
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0px); }
     }
     
-    @keyframes pulse {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.05); }
-      100% { transform: scale(1); }
-    }
-    
-    @media (max-width: 768px) {
-      h1 {
-        font-size: 2.5rem;
+    /* Landscape orientation adjustments */
+    @media (max-height: 500px) {
+      .content {
+        padding: 0.5rem;
       }
-      
       .logo {
-        font-size: 3.5rem;
+        font-size: 2.5rem;
+        margin-bottom: 0.25rem;
       }
-      
+      h1 {
+        font-size: 1.8rem;
+      }
       .tagline {
-        font-size: 1.2rem;
+        font-size: 1rem;
+        margin-bottom: 1rem;
       }
-      
+      p {
+        font-size: 0.9rem;
+        margin-bottom: 1rem;
+      }
       .countdown {
-        gap: 1rem;
+        margin-bottom: 1rem;
       }
-      
       .countdown-item {
-        padding: 0.8rem 1rem;
+        padding: 0.5rem;
         min-width: 60px;
       }
-      
       .countdown-value {
-        font-size: 1.8rem;
+        font-size: 1.4rem;
+      }
+      .cta {
+        padding: 0.8rem;
+        font-size: 1rem;
+      }
+    }
+    
+    /* Larger mobile devices */
+    @media (min-width: 400px) and (max-width: 767px) {
+      h1 {
+        font-size: 3rem;
+      }
+      .logo {
+        font-size: 4rem;
+      }
+      .tagline {
+        font-size: 1.5rem;
       }
     }
   </style>
@@ -238,76 +271,117 @@
     
   </div>
 
-  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
   <script>
-    // Set your launch date here (YYYY, MM-1, DD)
-    const launchDate = new Date(2025, 05, 30).getTime();
-    
-    // Countdown timer
-    const countdown = setInterval(() => {
-      const now = new Date().getTime();
-      const distance = launchDate - now;
+    // Performance-optimized version without external dependencies
+    document.addEventListener('DOMContentLoaded', function() {
+      // Set your launch date here (YYYY, MM-1, DD)
+      const launchDate = new Date(2025, 05, 30).getTime();
       
-      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-      
-      document.getElementById('days').innerText = days.toString().padStart(2, '0');
-      document.getElementById('hours').innerText = Math.floor(hours).toString().padStart(2, '0');
-      document.getElementById('minutes').innerText = minutes.toString().padStart(2, '0');
-      document.getElementById('seconds').innerText = seconds.toString().padStart(2, '0');
-      
-      if (distance < 0) {
-        clearInterval(countdown);
-        document.querySelector('.countdown').innerHTML = '<div class="launch-message">We\'re live! 🎉</div>';
-      }
-    }, 1000);
-    
-    // Notify button interaction
-    document.getElementById('notify-btn').addEventListener('click', function() {
-      this.textContent = 'You\'ll be the first to know!';
-      this.style.background = 'linear-gradient(45deg, #10b981, #059669)';
-      setTimeout(() => {
-        this.textContent = 'Thank you!';
-      }, 1500);
-    });
-    
-    // Particles.js initialization
-    particlesJS('particles-js', {
-      particles: {
-        number: { value: 80, density: { enable: true, value_area: 800 } },
-        color: { value: "#4f46e5" },
-        shape: { type: "circle" },
-        opacity: { value: 0.5, random: true },
-        size: { value: 3, random: true },
-        line_linked: { enable: true, distance: 150, color: "#4f46e5", opacity: 0.4, width: 1 },
-        move: { enable: true, speed: 2, direction: "none", random: true, straight: false, out_mode: "out" }
-      },
-      interactivity: {
-        detect_on: "canvas",
-        events: {
-          onhover: { enable: true, mode: "repulse" },
-          onclick: { enable: true, mode: "push" }
+      // Lightweight countdown timer
+      function updateCountdown() {
+        const now = new Date().getTime();
+        const distance = launchDate - now;
+        
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+        
+        document.getElementById('days').textContent = days.toString().padStart(2, '0');
+        document.getElementById('hours').textContent = Math.floor(hours).toString().padStart(2, '0');
+        document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+        document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+        
+        if (distance < 0) {
+          clearInterval(countdownInterval);
+          document.querySelector('.countdown').innerHTML = '<div style="font-size:1.5rem;width:100%">We\'re live! 🎉</div>';
         }
       }
-    });
-    
-    // Animate elements on scroll
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.style.opacity = 1;
-          entry.target.style.transform = 'translateY(0)';
-        }
+      
+      // Initial call and set interval
+      updateCountdown();
+      const countdownInterval = setInterval(updateCountdown, 1000);
+      
+      // Notify button interaction
+      const notifyBtn = document.getElementById('notify-btn');
+      notifyBtn.addEventListener('click', function() {
+        this.textContent = 'You\'ll be the first to know!';
+        setTimeout(() => {
+          this.textContent = 'Thank you!';
+        }, 1500);
       });
-    }, { threshold: 0.1 });
-    
-    document.querySelectorAll('.content > *').forEach(el => {
-      el.style.opacity = 0;
-      el.style.transform = 'translateY(20px)';
-      el.style.transition = 'all 0.6s ease-out';
-      observer.observe(el);
+      
+      // Touch feedback for buttons
+      notifyBtn.addEventListener('touchstart', function() {
+        this.style.transform = 'scale(0.98)';
+      });
+      notifyBtn.addEventListener('touchend', function() {
+        this.style.transform = 'scale(1)';
+      });
+      
+      // Simple particle effect (lightweight alternative to particles.js)
+      function initParticles() {
+        const canvas = document.createElement('canvas');
+        canvas.style.position = 'fixed';
+        canvas.style.top = '0';
+        canvas.style.left = '0';
+        canvas.style.width = '100%';
+        canvas.style.height = '100%';
+        canvas.style.zIndex = '0';
+        canvas.style.pointerEvents = 'none';
+        document.body.appendChild(canvas);
+        
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        
+        const particles = [];
+        const particleCount = Math.floor(window.innerWidth / 10);
+        
+        for (let i = 0; i < particleCount; i++) {
+          particles.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            size: Math.random() * 2 + 1,
+            speedX: Math.random() * 1 - 0.5,
+            speedY: Math.random() * 1 - 0.5
+          });
+        }
+        
+        function animate() {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          
+          for (let i = 0; i < particles.length; i++) {
+            const p = particles[i];
+            
+            ctx.fillStyle = `rgba(79, 70, 229, ${Math.random() * 0.5 + 0.1})`;
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+            ctx.fill();
+            
+            p.x += p.speedX;
+            p.y += p.speedY;
+            
+            if (p.x < 0 || p.x > canvas.width) p.speedX *= -1;
+            if (p.y < 0 || p.y > canvas.height) p.speedY *= -1;
+          }
+          
+          requestAnimationFrame(animate);
+        }
+        
+        animate();
+        
+        window.addEventListener('resize', function() {
+          canvas.width = window.innerWidth;
+          canvas.height = window.innerHeight;
+        });
+      }
+      
+      // Only init particles on devices that can likely handle it
+      if (!navigator.userAgent.match(/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i) || 
+          window.innerWidth > 768) {
+        initParticles();
+      }
     });
   </script>
 </body>
