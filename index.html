@@ -2,30 +2,318 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Coming Soon - BytesNest</title>
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+    
+    :root {
+      --primary: #4f46e5;
+      --secondary: #10b981;
+      --dark: #0f172a;
+      --light: #f1f5f9;
+    }
+    
     body {
-      font-family: Arial, sans-serif;
-      background-color: #0f172a;
-      color: #f1f5f9;
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--dark);
+      color: var(--light);
       display: flex;
       align-items: center;
       justify-content: center;
-      height: 100vh;
+      min-height: 100vh;
       margin: 0;
       flex-direction: column;
+      overflow-x: hidden;
+      position: relative;
     }
+    
+    .particles {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+    }
+    
+    .content {
+      text-align: center;
+      z-index: 1;
+      padding: 2rem;
+      max-width: 800px;
+    }
+    
     h1 {
-      font-size: 3rem;
+      font-size: 4rem;
+      margin-bottom: 1rem;
+      background: linear-gradient(45deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      animation: pulse 2s infinite;
     }
+    
+    .logo {
+      font-size: 5rem;
+      margin-bottom: 1rem;
+      display: inline-block;
+      transform-style: preserve-3d;
+      animation: float 6s ease-in-out infinite;
+    }
+    
     p {
+      font-size: 1.5rem;
+      margin-bottom: 2rem;
+      opacity: 0.9;
+    }
+    
+    .tagline {
+      font-size: 1.8rem;
+      font-weight: 300;
+      margin-bottom: 3rem;
+      background: linear-gradient(45deg, #e2e8f0, #94a3b8);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    
+    .countdown {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-bottom: 3rem;
+    }
+    
+    .countdown-item {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      padding: 1rem 1.5rem;
+      border-radius: 10px;
+      min-width: 80px;
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    }
+    
+    .countdown-value {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--primary);
+    }
+    
+    .countdown-label {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      opacity: 0.7;
+    }
+    
+    .cta {
+      background: linear-gradient(45deg, var(--primary), var(--secondary));
+      color: white;
+      border: none;
+      padding: 1rem 2.5rem;
       font-size: 1.2rem;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(79, 70, 229, 0.4);
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+    }
+    
+    .cta:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(79, 70, 229, 0.6);
+    }
+    
+    .cta:active {
+      transform: translateY(1px);
+    }
+    
+    .cta::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(45deg, var(--secondary), var(--primary));
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: -1;
+    }
+    
+    .cta:hover::before {
+      opacity: 1;
+    }
+    
+    .social-links {
+      display: flex;
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+    
+    .social-link {
+      color: var(--light);
+      font-size: 1.5rem;
+      transition: all 0.3s ease;
+    }
+    
+    .social-link:hover {
+      color: var(--primary);
+      transform: translateY(-3px);
+    }
+    
+    @keyframes float {
+      0% { transform: translateY(0px) rotateY(0deg); }
+      50% { transform: translateY(-20px) rotateY(10deg); }
+      100% { transform: translateY(0px) rotateY(0deg); }
+    }
+    
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+    
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 2.5rem;
+      }
+      
+      .logo {
+        font-size: 3.5rem;
+      }
+      
+      .tagline {
+        font-size: 1.2rem;
+      }
+      
+      .countdown {
+        gap: 1rem;
+      }
+      
+      .countdown-item {
+        padding: 0.8rem 1rem;
+        min-width: 60px;
+      }
+      
+      .countdown-value {
+        font-size: 1.8rem;
+      }
     }
   </style>
 </head>
 <body>
-  <h1>🚧 bytesnest.xyz</h1>
-  <p>Something awesome is coming soon!</p>
+  <div class="particles" id="particles-js"></div>
+  
+  <div class="content">
+    <div class="logo">🚀</div>
+    <h1>BytesNest</h1>
+    <p class="tagline">Building the future of digital experiences</p>
+    <p>We're working hard to bring you something extraordinary. Stay tuned!</p>
+    
+    <div class="countdown">
+      <div class="countdown-item">
+        <div class="countdown-value" id="days">00</div>
+        <div class="countdown-label">Days</div>
+      </div>
+      <div class="countdown-item">
+        <div class="countdown-value" id="hours">00</div>
+        <div class="countdown-label">Hours</div>
+      </div>
+      <div class="countdown-item">
+        <div class="countdown-value" id="minutes">00</div>
+        <div class="countdown-label">Minutes</div>
+      </div>
+      <div class="countdown-item">
+        <div class="countdown-value" id="seconds">00</div>
+        <div class="countdown-label">Seconds</div>
+      </div>
+    </div>
+    
+    <button class="cta" id="notify-btn">Notify Me on Launch</button>
+    
+    <div class="social-links">
+      <a href="#" class="social-link">🐦</a>
+      <a href="#" class="social-link">📸</a>
+      <a href="#" class="social-link">💼</a>
+      <a href="#" class="social-link">📧</a>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+  <script>
+    // Set your launch date here (YYYY, MM-1, DD)
+    const launchDate = new Date(2023, 11, 31).getTime();
+    
+    // Countdown timer
+    const countdown = setInterval(() => {
+      const now = new Date().getTime();
+      const distance = launchDate - now;
+      
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+      
+      document.getElementById('days').innerText = days.toString().padStart(2, '0');
+      document.getElementById('hours').innerText = Math.floor(hours).toString().padStart(2, '0');
+      document.getElementById('minutes').innerText = minutes.toString().padStart(2, '0');
+      document.getElementById('seconds').innerText = seconds.toString().padStart(2, '0');
+      
+      if (distance < 0) {
+        clearInterval(countdown);
+        document.querySelector('.countdown').innerHTML = '<div class="launch-message">We\'re live! 🎉</div>';
+      }
+    }, 1000);
+    
+    // Notify button interaction
+    document.getElementById('notify-btn').addEventListener('click', function() {
+      this.textContent = 'You\'ll be the first to know!';
+      this.style.background = 'linear-gradient(45deg, #10b981, #059669)';
+      setTimeout(() => {
+        this.textContent = 'Thank you!';
+      }, 1500);
+    });
+    
+    // Particles.js initialization
+    particlesJS('particles-js', {
+      particles: {
+        number: { value: 80, density: { enable: true, value_area: 800 } },
+        color: { value: "#4f46e5" },
+        shape: { type: "circle" },
+        opacity: { value: 0.5, random: true },
+        size: { value: 3, random: true },
+        line_linked: { enable: true, distance: 150, color: "#4f46e5", opacity: 0.4, width: 1 },
+        move: { enable: true, speed: 2, direction: "none", random: true, straight: false, out_mode: "out" }
+      },
+      interactivity: {
+        detect_on: "canvas",
+        events: {
+          onhover: { enable: true, mode: "repulse" },
+          onclick: { enable: true, mode: "push" }
+        }
+      }
+    });
+    
+    // Animate elements on scroll
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = 1;
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, { threshold: 0.1 });
+    
+    document.querySelectorAll('.content > *').forEach(el => {
+      el.style.opacity = 0;
+      el.style.transform = 'translateY(20px)';
+      el.style.transition = 'all 0.6s ease-out';
+      observer.observe(el);
+    });
+  </script>
 </body>
 </html>
